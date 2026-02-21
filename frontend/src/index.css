@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 20% 7%;
+    --foreground: 210 20% 92%;
+
+    --card: 220 18% 10%;
+    --card-foreground: 210 20% 92%;
+
+    --popover: 220 18% 12%;
+    --popover-foreground: 210 20% 92%;
+
+    --primary: 210 100% 56%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 16% 16%;
+    --secondary-foreground: 210 20% 80%;
+
+    --muted: 220 14% 14%;
+    --muted-foreground: 215 12% 50%;
+
+    --accent: 220 16% 18%;
+    --accent-foreground: 210 20% 92%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 14% 16%;
+    --input: 220 14% 18%;
+    --ring: 210 100% 56%;
+
+    --radius: 0.75rem;
+
+    /* Severity tokens */
+    --severity-critical: 0 72% 51%;
+    --severity-critical-foreground: 0 0% 100%;
+    --severity-warning: 38 92% 50%;
+    --severity-warning-foreground: 38 92% 10%;
+    --severity-info: 210 100% 56%;
+    --severity-info-foreground: 0 0% 100%;
+    --severity-success: 142 71% 45%;
+    --severity-success-foreground: 0 0% 100%;
+
+    /* Metro tokens */
+    --metro-red: 0 80% 55%;
+    --metro-red-foreground: 0 0% 100%;
+    --metro-blue: 210 100% 56%;
+    --metro-blue-foreground: 0 0% 100%;
+
+    /* Chart tokens */
+    --chart-1: 210 100% 56%;
+    --chart-2: 0 72% 51%;
+    --chart-3: 142 71% 45%;
+    --chart-4: 38 92% 50%;
+    --chart-5: 262 83% 58%;
+
+    --sidebar-background: 220 20% 7%;
+    --sidebar-foreground: 210 20% 92%;
+    --sidebar-primary: 210 100% 56%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 16% 18%;
+    --sidebar-accent-foreground: 210 20% 92%;
+    --sidebar-border: 220 14% 16%;
+    --sidebar-ring: 210 100% 56%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  code, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer utilities {
+  .severity-critical {
+    @apply bg-[hsl(var(--severity-critical))];
+    color: hsl(var(--severity-critical-foreground));
+  }
+  .severity-warning {
+    @apply bg-[hsl(var(--severity-warning))];
+    color: hsl(var(--severity-warning-foreground));
+  }
+  .severity-info {
+    @apply bg-[hsl(var(--severity-info))];
+    color: hsl(var(--severity-info-foreground));
+  }
+  .severity-success {
+    @apply bg-[hsl(var(--severity-success))];
+    color: hsl(var(--severity-success-foreground));
+  }
+
+  .card-glow {
+    box-shadow: 0 0 0 1px hsl(var(--border)), 0 4px 24px -4px hsl(220 20% 4% / 0.6);
+  }
+}
