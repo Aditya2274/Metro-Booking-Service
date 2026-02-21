@@ -1,10 +1,11 @@
 import { useState, useMemo } from "react";
-import { Train, ArrowRight, Clock, Repeat, ChevronDown, AlertCircle, Ticket, QrCode } from "lucide-react";
+import { Train, ArrowRight, Clock, Repeat, AlertCircle, Ticket, QrCode } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
+import { QRCodeCanvas as QRCode } from "qrcode.react";
 
 const STATIONS = [
   { id: "S1", name: "Station A" },
@@ -14,24 +15,6 @@ const STATIONS = [
   { id: "S5", name: "Station E" },
 ];
 
-// Mock route logic: S3 is the interchange hub
-function findRoute(src: string, dest: string): { stops: string[]; time: number; transfers: number } | null {
-  if (src === dest) return null;
-
-  const idx = (id: string) => STATIONS.findIndex((s) => s.id === id);
-  const si = idx(src);
-  const di = idx(dest);
-
-  // Simple linear route; if path crosses S3, mark transfer
-  const stops: string[] = [];
-  const step = si < di ? 1 : -1;
-  for (let i = si; step > 0 ? i <= di : i >= di; i += step) {
-    stops.push(STATIONS[i].id);
-  }
-
-  const hasTransfer = stops.includes("S3") && stops[0] !== "S3" && stops[stops.length - 1] !== "S3";
-  return { stops, time: (stops.length - 1) * 5, transfers: hasTransfer ? 1 : 0 };
-}
 
 function generateQRHash(src: string, dest: string): string {
   const ts = Date.now().toString(36).toUpperCase();
@@ -304,21 +287,7 @@ const MetroBooking = () => {
                   <div className="border-t border-dashed border-border pt-5">
                     <div className="flex flex-col items-center gap-3">
                       {/* Mock QR Code */}
-                      <div className="w-36 h-36 rounded-xl bg-foreground/95 p-3 flex items-center justify-center">
-                        <div className="w-full h-full grid grid-cols-7 grid-rows-7 gap-[2px]">
-                          {Array.from({ length: 49 }).map((_, idx) => (
-                            <div
-                              key={idx}
-                              className={`rounded-[1px] ${
-                                // Deterministic pseudo-random pattern
-                                [0,1,2,4,5,6,7,13,14,20,21,22,23,24,25,26,27,28,35,41,42,43,44,45,46,47,48].includes(idx)
-                                  ? "bg-background"
-                                  : "bg-background/40"
-                              }`}
-                            />
-                          ))}
-                        </div>
-                      </div>
+                      <QRCode value={trip.qrHash} size={144} level="H" includeMargin={true} />
                       <p className="text-[11px] font-mono text-muted-foreground text-center break-all max-w-[280px] leading-relaxed">
                         {trip.qrHash}
                       </p>
