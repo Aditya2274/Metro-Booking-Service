@@ -66,14 +66,8 @@ The backend is a separate Spring Boot application running on port 8090.
 ### Start Backend
 
 ```bash
-cd /path/to/alertsystem
+cd /backend
 bash mvnw spring-boot:run
-```
-
-Or run the compiled JAR:
-
-```bash
-java -jar target/alertsystem-0.0.1-SNAPSHOT.jar
 ```
 
 Backend API runs on `http://localhost:8090`
