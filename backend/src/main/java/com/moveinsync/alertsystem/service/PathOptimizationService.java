@@ -35,17 +35,20 @@ public class PathOptimizationService {
     }
 
     public PathResult findShortestPath(String sourceId, String destId) {
+        log.info("Received route request from Source: [{}] to Destination: [{}]", sourceId, destId);
         Map<String, List<Edge>> graph = repository.getGraph();
 
     // 1. Requirement: Handle same source/destination
     // Changed: Must return an error string to pass 'testEdgeCase_SameSourceAndDestination'
     if (sourceId.equals(destId)) {
+        log.warn("Route request blocked: Source and destination are the same [{}]", sourceId);
         return new PathResult(new ArrayList<>(), 0, 0, "Source and destination cannot be the same.");
     }
 
     // 2. Requirement: Handle non-existent stations
     // Changed: Message must contain "Invalid" to pass 'testEdgeCase_InvalidStation'
     if (!graph.containsKey(sourceId) || !graph.containsKey(destId)) {
+        log.warn("Route request blocked: Invalid station ID provided. Source: [{}], Destination: [{}]", sourceId, destId);
         return new PathResult(new ArrayList<>(), 0, 0, "Invalid source or destination station.");
     }
 

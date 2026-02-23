@@ -35,7 +35,7 @@ public class MetroGraphRepository {
 
         // 3. Automatically build the graph
         buildGraph();
-        System.out.println("🚇 METRO GRAPH INITIALIZED: " + stops.size() + " stops, " + routes.size() + " routes.");
+        System.out.println("METRO GRAPH INITIALIZED: " + stops.size() + " stops, " + routes.size() + " routes.");
     }
 
     public void addStop(Stop stop) { stops.put(stop.getId(), stop); }
